@@ -54,6 +54,7 @@ void print(TreeNode *root)
 int main(int argc, char **argv)
 {
     TreeNode n1(1), n2(2), n3(3), n4(4), n5(5), n6(6);
+
     n1.left = &n2;
     n1.right = &n5;
     n2.left = &n3;
