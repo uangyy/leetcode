@@ -23,13 +23,14 @@ double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Si
         arr[current++] = nums2[j++];
     }
 
+    int mid = (len - 1) / 2;
+
     if (len % 2 == 1)
     {
-        return arr[(len - 1) / 2];
+        return arr[mid];
     }
     else
     {
-        int mid = (len - 1) / 2;
         return (double)(arr[mid] + arr[mid + 1]) / 2;
     }
 }

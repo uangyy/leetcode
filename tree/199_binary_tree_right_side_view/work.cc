@@ -16,10 +16,7 @@ public:
         vector<int> res;
         if (!root)
             return res;
-        res.push_back(root->val);
-        TreeNode *current = root->right;
-        if (!current)
-            return res;
+        TreeNode *current = root;
 
         queue<TreeNode *> level_node;
         level_node.push(current);
@@ -32,7 +29,8 @@ public:
             {
                 current = level_node.front();
                 level_node.pop();
-                res.push_back(current->val);
+                if (level_count == 0)
+                    res.push_back(current->val);
                 if (current->left)
                     level_node.push(current->left);
                 if (current->right)
@@ -50,10 +48,13 @@ int main(int argc, char **argv)
     n1.right = &n3;
     n2.right = &n5;
     n3.right = &n4;
+
+    TreeNode n6(1), n7(2);
+    n6.right = &n7;
     
     Solution s;
     vector<int> res;
-    res = s.rightSideView(&n1);
+    res = s.rightSideView(&n6);
 
     for (int i = 0; i < res.size(); ++i)
     {
