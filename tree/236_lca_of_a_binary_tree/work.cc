@@ -25,7 +25,7 @@ public:
         while (current)
         {
             stack1.push_back(current);
-            if (current->val == p->val)
+            if (current == p)
                 break;
             current = current->left;
         }
@@ -45,7 +45,7 @@ public:
                     while (current)
                     {
                         stack1.push_back(current);
-                        if (current->val == p->val)
+                        if (current == p)
                             break;
                         current = current->left;
                     }
@@ -60,7 +60,7 @@ public:
         while (current)
         {
             stack2.push_back(current);
-            if (current->val == q->val)
+            if (current == q)
                 break;
             current = current->left;
         }
@@ -80,7 +80,7 @@ public:
                     while (current)
                     {
                         stack2.push_back(current);
-                        if (current->val == q->val)
+                        if (current == q)
                             break;
                         current = current->left;
                     }
