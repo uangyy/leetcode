@@ -20,47 +20,58 @@ public:
         return -1;
     }
 
+    // m: S中匹配到W第一个字母的位置, i: 当前匹配到的W中的字母的索引
     vector<int> get_next(string str)
     {
-        vector<int> next(str.size(), -1);
-        for (int i = 1; i < str.size(); ++i)
+        vector<int> next(str.size(), 0);
+        next[0] = -1;
+        next[1] = 0;
+        int cnd = 0;
+        for (int i = 2; i < str.size(); )
         {
-            int tmp = next[i - 1];
-            while (1)
+            if (str[i - 1] == str[cnd])
             {
-                if (str[i] == str[tmp + 1])
-                {
-                    next[i] = tmp + 1;
-                    break;
-                }
-                if (tmp == -1)
-                    break;
-                tmp = next[tmp];
+                next[i] = cnd + 1;
+                cnd++;
+                i++;
+            }
+            else if (cnd > 0)
+                cnd = next[cnd];
+            else
+            {
+                next[i] = 0;
+                i++;
             }
         }
         return next;
     }
 
     int strStr_KMP(string haystack, string needle) {
+        if (!needle.size())
+            return 0;
+        if (!haystack.size())
+            return -1;
         vector<int> next = get_next(needle);
-        int i = 0, j = 0;
-        for (; i < haystack.size() && j < needle.size();)
+        int m = 0, i = 0;
+        for (; m + i < haystack.size(); )
         {
-            if (haystack[i] == needle[j])
+            if (haystack[m + i] == needle[i])
             {
+                if (i == needle.size() - 1)
+                    return m;
                 ++i;
-                ++j;
+            }
+            else if (next[i] > -1)
+            {
+                m = m + i - next[i];
+                i = next[i];
             }
             else
             {
-                if (j == 0)
-                    i++;
-                else
-                    j = next[j - 1] + 1;
+                m = m + i + 1;
+                i = 0;
             }
         }
-        if (j == needle.size())
-            return i - j;
         return -1;
     }
 };
