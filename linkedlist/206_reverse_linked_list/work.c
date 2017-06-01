@@ -20,6 +20,15 @@ struct ListNode* reverseList(struct ListNode* head) {
     return head;
 }
 
+struct ListNode *reverseList_rec(struct ListNode *head)
+{
+    if (!head || !head->next) return head;
+    struct ListNode *tmp = reverseList_rec(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return tmp;
+}
+
 void print(struct ListNode *head)
 {
     while (head)
@@ -42,7 +51,7 @@ int main(int argc, char **argv)
                     *res;
     print(&n0);
     print(&n1);
-    res = reverseList(&n1);
+    res = reverseList_rec(&n1);
     print(res);
     return 0;
 }
